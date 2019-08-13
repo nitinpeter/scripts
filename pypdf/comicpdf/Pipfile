@@ -1,0 +1,18 @@
+[[ source ]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+requests = "*"
+urllib2 = "*"
+lxml = "*"
+fpdf = '*'
+pil = "*"
+python3-bs4 = "*"
+img2pdf= "*"
+
+[requires]
+python_version = "3.6"
