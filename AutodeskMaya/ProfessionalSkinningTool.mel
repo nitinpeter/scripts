@@ -1,0 +1,616 @@
+//Written on 2013
+//Nitin Peter
+python("from lg_fast import *");
+python("from adpsa import *");
+global proc psa()
+{ 
+windowPref -ra;
+if(`window -ex tokWin`==true)
+{deleteUI tokWin; }
+
+window -w 360 -h 460 -s 1 -t ("Professional Skin Aid") -in "PSA"  -tlb 0 -tb 1 tokWin;
+tabLayout tatala ;
+columnLayout -cat "both" 5 -rs 5 -cw 360 PSA;
+popupMenu;
+menuItem -l "Select This List" -en 1 -c "seleme();";
+menuItem -l "SelectedList" -en true -c "astl();";
+menuItem -l "Clear This List" -en 1 -c "nt_clearlist();";
+menuItem -l "SaveList" -en 1 -c "nt_slist();";
+menuItem -l "myPinList" -en 1 -c "nt_llist();";
+menuItem -l "Reset" -en 1 -c "psa";
+rowColumnLayout -nc 2 -cw 1 300 -cw 2 100;
+rowColumnLayout -nc 8 -cw 1 133 -cw 2 10 -cw 3 20 -cw 4 20 -cw 5 32 -cw 6 32 -cw 7 40 -cw 8 20 -cw 9 20;
+radioButtonGrp -nrb 4 -cw5 3 30 30 30 30  -l "" -cc "modoi" -la4 "O" "V" "E" "F" -sl 1 otre;
+text -l "";
+button -c "eloop 3" -l "+";
+button -c "eloop 4" -l "-";
+button -c "eloop 1" -l "LOOP";
+button -c "eloop 2" -l "RING";
+button -c "eloop 5" -l "SHELL" -w 35;
+//
+//button -c "setToPaint" -l "P";
+setParent..;
+rowColumnLayout -nc 2 -cw 1 24 -cw 2 24;
+      toolCollection;
+  toolButton -h 25 -dcc "python(\"setToPaint()\")" -t  artAttrSkinContext -ti1 artAttrSkinContext "artSelect.xpm";
+  toolButton -h 25 -dcc "setToolTo moveSuperContext" -t  moveSuperContext  -ti1 moveSuperContext "aselect.xpm";
+setParent..;
+setParent..;
+rowColumnLayout -nc 3 -cw 1 200 -cw 2 30 -cw 3 100 ;
+button -w 200 -h 25 -l "SELECT"  -bgc 0.9 0.7 0.9 -c "selbu;" selbo;
+text -l "";
+rowColumnLayout -nc 3 -cw 1 80 -cw 2 20  -cw 3 20 ;
+ optionMenu -l "" -cc "modioc" modi;
+ menuItem -l "Skin";
+ menuItem -l "Clusters";
+menuItem -l "BlendShape";
+textField -ed 1 -en 1 -tx 1.0 nt_maxTF;
+setParent..;
+floatSliderGrp -l "BLEND" -f true -cw3 1 50 250 -pre 2 -min 0.00 -cc "lookin;" -max 1.0 -v 0.0 sklid;
+popupMenu flotpop;
+menuItem -l "0.0" -c "floatSliderGrp -e -v 0.0 sklid";
+menuItem -l "0.5" -c "floatSliderGrp -e -v 0.5 sklid";
+menuItem -l "1.0" -c "floatSliderGrp -e -v 1.0 sklid";
+button -l "*" -c "python(\"psaecho()\")" ;
+rowColumnLayout -nc 3 -cw 1 20 -cw 2 60  -cw 3 20 ;
+text -l "";
+checkBox -v 1 -l "Auto"  -w 30 cbAuto;
+button -bgc 0.2 0.2 0.2 -l "L" -c "Holdval()" lockbutt;
+popupMenu;
+menuItem -l "LockSelected" -c "Lockval()";
+menuItem -l "LockOthers" -c "Paintval()";
+setParent..;
+setParent..;
+rowColumnLayout  -nc 11 -cw 1 26 -cw 2 33 -cw 3 31 -cw 4 34 -cw 5 27 -cw 6 34  -cw 7 31 -cw 8 38 -cw 9 28 -cw 10 30 -cw 11 35;
+button -h 35 -w 26 -l "Flat" -c "python(\"doski(1)\");" -bgc 0.7 0.67 0.7 ntflatbutt;
+popupMenu;menuItem  -l "Flat" -c "dora(\"ntflatbutt\");python(\"doski(1)\");";
+button -h 35 -w 33 -l "Punch" -c "python(\"doski(10)\");" -bgc 0.76 0.72 0.7 ntpungbutt;
+popupMenu;menuItem  -l "Punch" -c "dora(\"ntpungbutt\");python(\"doski(10)\");";
+button -h 35  -w 31 -l "Mean" -c "python(\"setty(17)\");" -bgc 0.7 0.7 0.76 ntmeanbutt;
+popupMenu;menuItem -l "UpMean" -c "dora(\"ntmeanbutt\");python(\"setty(19)\");";
+menuItem -l "Mean" -c "dora(\"ntmeanbutt\");python(\"setty(17)\");";
+menuItem -l "LowMean" -c "dora(\"ntmeanbutt\");python(\"setty(18)\");";
+button -h 35 -w 34 -l "Blend" -c "python(\"doski(6)\");" -bgc 0.7 0.67 0.7 ntblendbutt;
+popupMenu;menuItem -l "Up" -c "dora(\"ntblendbutt\");python(\"doski(7)\");";
+menuItem -l "Mid" -c "dora(\"ntblendbutt\");python(\"doski(6)\");";
+menuItem -l "Down" -c "dora(\"ntblendbutt\");python(\"doski(8)\");";
+button -h 35 -w 27 -l "Add" -c "python(\"setty(2)\")"  -bgc 0.67 0.67 0.67 ntaddbutt;
+popupMenu;menuItem  -l "Add" -c "dora(\"ntaddbutt\");python(\"setty(2)\")";
+button -h 35 -w 34 -l "Minus" -c "python(\"setty(3)\")"  -bgc 0.7 0.72 0.7 ntminusbutt;
+popupMenu;menuItem -l "Minus" -c "dora(\"ntminusbutt\");python(\"setty(3)\")";;
+button -h 35 -w 31 -l "Multi" -c "python(\"setty(4)\")"  -bgc 0.7 0.7 0.72 ntmultibutt;
+popupMenu;menuItem -l "Multi" -c "dora(\"ntmultibutt\");python(\"setty(4)\")" ;
+ button -h 35 -w 38 -l "Divide" -c "python(\"setty(5)\")" -bgc 0.7 0.75 0.7 ntdividbutt;
+ popupMenu;menuItem  -l "Divide" -c "dora(\"ntdividbutt\");python(\"setty(5)\")" ;
+button -h 35 -w 28 -l "Put" -c "python(\"setty(0)\")" -bgc 0.7 0.7 0.75 ntputbutt;
+popupMenu;menuItem -l "Put" -c "dora(\"ntputbutt\");python(\"setty(0)\")" ;
+ button -h 35 -w 30 -l "Print" -c "python(\"doski(2)\");" -bgc 0.7 0.7 0.7 ntprintbutt;
+ popupMenu;menuItem -l "PrintAll" -c "dora(\"ntprintbutt\");python(\"doski(2)\");" ;
+ menuItem -l "PrintAvg" -c "dora(\"ntprintbutt\");python(\"doski(2.5)\");";
+ button -h 35 -w 35 -l "Points" -c "mottos" -bgc 0.73 0.7 0.73 ntpointbutt;
+ popupMenu;menuItem -l "Points" -c "dora(\"ntpointbutt\");mottos" ;
+setParent..;
+rowColumnLayout  -nc 2 -cw 1 300 -cw 2 40 ;
+textScrollList -ams 1 -dcc "selu()" -h 320 -dgc "DGCB" nt_texList;
+
+popupMenu asfapop;
+menuItem -l "Remove" -c "iremover();";
+menuItem -l "RemoveOthers" -c "ixremover()" ;
+menuItem -d 1;
+menuItem -l "SwapJoints" -c "python(\"josuf()\")" ;
+menuItem -l "JointLocal" -c "selLoc()";
+menuItem -l "SelectPaintable" -en 1 -c "selP();";
+menuItem -l "selHeira JointList" -en 1 -c "astla();";
+columnLayout ;
+button -l "Zero"  -c "python(\"doski(0);\")" -w 40 -h 35 -bgc 0.6 0.8 0.9 fabs0;
+popupMenu;menuItem -l "Zero"  -c "dora(\"fabs0\");python(\"doski(0);\")";
+button -l "Grab"  -c "python(\"doski(4);\")" -w 40  -h 35 -bgc 0.6 0.8 0.9 fabs1;
+popupMenu;menuItem -l "Grab"  -c "dora(\"fabs1\");python(\"doski(4);\")" ;
+button -l "Share"  -c "python(\"doski(5)\")" -w 40  -h 35 -bgc 0.6 0.8 0.9 fabs2;
+popupMenu;menuItem -l "Share"  -c "dora(\"fabs2\");python(\"doski(5)\")";
+button -l "mAdd"  -c "python(\"setty(6)\")" -w 40  -h 35 -bgc 0.9 0.9 0.7 fabs3;
+popupMenu;menuItem -l "mAdd"  -c "dora(\"fabs3\");python(\"setty(6)\")";
+button -l "mRed"  -c "python(\"setty(7)\")" -w 40   -h 35 -bgc 0.9 0.9 0.7 fabs4;
+popupMenu;menuItem -l "mRed"  -c "dora(\"fabs4\");python(\"setty(7)\")";
+button -l "Eat"  -c "python(\"setty(8)\")" -w 40  -h 35 -bgc 0.9 0.9 0.7 fabs5;
+popupMenu;menuItem -l "Eat"  -c "dora(\"fabs5\");python(\"setty(8)\")";
+button -l "Erode"   -c "python(\"setty(9)\")" -w 40  -h 35 -bgc 0.9 0.9 0.7 fabs6;
+popupMenu;menuItem -l "Erode"   -c "dora(\"fabs6\");python(\"setty(9)\")";
+button -l "Peak"   -c "python(\"setty(10)\")" -h 35 -w 40  -bgc 0.6 0.8 0.9 fabs7;
+popupMenu;menuItem -l "Peak"   -c "dora(\"fabs7\");python(\"setty(10)\")";
+button -l "Digg"  -c "python(\"setty(11)\")" -h 35 -w 40  -bgc 0.6 0.8 0.9 fabs8;
+popupMenu;menuItem -l "Digg"  -c "dora(\"fabs8\");python(\"setty(11)\")";
+//menuItem -l "McPoints"  -c "Mcmac 0;" -h 30;
+setParent..;setParent..;
+rowColumnLayout -nc 4 -cw 1 20 -cw 2 205 -cw 3 75 -cw 4 40 ;
+button -l ">" -c "selbysert" nt_bsert;
+textField  -text "" -ec "ntsearches()" -dgc "DPCB"  -en 1 sert;
+popupMenu;
+menuItem -l "Select" -en 1 -c "iselput(0)";
+menuItem -l "Deselect" -en 1 -c "iselput(1)";
+menuItem -l "InvertSel"  -c "nt_inverta();";
+menuItem -l "Clear" -en 1 -c "textScrollList -e -da nt_texList";
+textField -tx ""  -ed 0  meshth;
+popupMenu meshtha;
+button -l "J2C"  -c "jo2cl" -h 25 -w 40  -bgc 0.9 0.7 0.8 jcBut;
+setParent..;
+rowColumnLayout -nc 8 -cw 1 45 -cw 2 35 -cw 3 45 -cw 4 45 -cw 5 10 -cw 6 57 -cw 7 45 -cw 8 60;
+button -c "python(\"skid()\")" -l "DET-AT";
+button -c "python(\"skop()\")" -l "COP";
+button -l "AddInf" -c "addInf";
+button -l "RemInf" -c "remInf";
+text -l "";
+checkBox -v 1 -l "Update"  -w 30 cbUpd;
+checkBox -v 0 -l "Sort" -cc "python(\"nt_sorto()\");"  cbSort;
+checkBox -v 1 -l "NonZero" -cc "nt_slist;jremover;" -w 30 cbNonZe;
+
+setParent..;
+textField -tx "first"  -vis 0 fname; textField -en 0 -tx "first"  -vis 0 skfname;
+textField -tx "second"  -vis 0 sname; textField -en 0 -tx "second"  -vis 0 sksname;
+textScrollList -ams 1 -vis 0 nt_proxList;
+textField -tx "" -ed 0 -vis 0  mesht;
+textField -tx "" -vis 0 commantxt;
+setParent..;
+setParent..;
+setParent..;
+showWindow tokWin;
+}
+psa();
+global proc selLoc()
+{
+    python("selLoc()");
+    }
+global proc lookin()
+{
+float $bb=`checkBox -q -v cbAuto`;
+if($bb)
+{
+	string $cmoo=`textField -q -tx commantxt`;
+	string $essel[]=`ls -sl -fl`;
+	if (len($essel)<120)
+	    eval($cmoo);
+	else
+	 print "120";
+}
+}
+global proc dora(string $butab)
+{
+button -e  -bgc 0.6 0.8 0.9 fabs0; 
+button -e  -bgc 0.6 0.8 0.9 fabs1;
+button -e  -bgc 0.6 0.8 0.9 fabs2; 
+button -e  -bgc 0.9 0.9 0.7 fabs3; 
+button -e  -bgc 0.9 0.9 0.7 fabs4;
+button -e  -bgc 0.9 0.9 0.7 fabs5; 
+button -e  -bgc 0.9 0.9 0.7 fabs6;
+button -e  -bgc 0.6 0.8 0.9 fabs7;
+button -e  -bgc 0.6 0.8 0.9 fabs8;
+button -e  -bgc 0.7 0.7 0.7 ntflatbutt;
+button -e  -bgc 0.7 0.7 0.7 ntmeanbutt;
+button -e  -bgc 0.7 0.7 0.7 ntblendbutt;
+button -e  -bgc 0.7 0.7 0.7 ntaddbutt;
+button -e  -bgc 0.7 0.7 0.7 ntminusbutt;
+button -e  -bgc 0.7 0.7 0.7 ntmultibutt;
+button -e  -bgc 0.7 0.7 0.7 ntdividbutt;
+button -e  -bgc 0.7 0.7 0.7 ntputbutt;
+button -e  -bgc 0.7 0.7 0.7 ntprintbutt;
+button -e  -bgc 0.7 0.7 0.7 ntpointbutt;
+
+button -e  -bgc 0.9 0.2 0.2 $butab;
+string $comm=`button -q -c $butab`;
+textField -e -tx $comm commantxt;
+}
+global proc modoi()
+{
+int $q =`radioButtonGrp -q -sl otre`;
+//setToolTo moveSuperContext;
+if($q==1)
+selectMode -o;
+if($q==2)
+{
+changeSelectMode -component;
+setComponentPickMask "Point" true;
+setComponentPickMask "Line" 0;
+setComponentPickMask "Facet" 0;
+ConvertSelectionToVertices;
+}
+if($q==3)
+{
+changeSelectMode -component;
+setComponentPickMask "Point"0;
+setComponentPickMask "Line" 1;
+setComponentPickMask "Facet" 0;
+ConvertSelectionToEdges;
+}
+if($q==4)
+{
+changeSelectMode -component;
+setComponentPickMask "Point"0;
+setComponentPickMask "Line" 0;
+setComponentPickMask "Facet" 1;
+ConvertSelectionToFaces;
+}
+}
+global proc mottos()
+{
+string $essen[]=`textScrollList -q -si nt_texList`;
+float $sklidv=`floatSliderGrp -q -v sklid`;
+string $mestask=`textField -q -tx mesht`;
+ int $sikk=`optionMenu -q -sl modi`;
+if ($sikk==1)
+{
+string $comodo=("skimpolin(\""+$mestask+"\",[");
+for($i=0;$i<(size($essen)-1);$i++)
+	$comodo=($comodo+"\""+$essen[$i]+"\",");
+$comodo=$comodo+"\""+$essen[size($essen)-1]+"\"],"+$sklidv+",1)";
+python($comodo);
+}
+else
+{
+select -cl;
+string $polinj[]={};
+for($i=0;$i<size($essen);$i++)
+python("clumpolin (\""+$essen[$i]+"\","+$sklidv+")");
+}
+}
+global proc eloop(int $mo)
+{
+if($mo==1)
+SelectEdgeLoop;
+if($mo==2)
+SelectEdgeRing;
+if($mo==3)
+GrowPolygonSelectionRegion;
+if($mo==4)
+ShrinkPolygonSelectionRegion;
+if($mo==5)
+{    SelectEdgeLoop;    SelectEdgeRing;
+    GrowPolygonSelectionRegion; polySelectBorderShell 0;
+    }
+modoi();
+}
+global proc addInf()
+{
+ int $aljo=`optionMenu -q -sl modi`;
+python("addInf("+$aljo+")");
+}
+global proc remInf()
+{
+ int $aljo=`optionMenu -q -sl modi`;
+python("remInf("+$aljo+")");
+}
+global proc selbysert()
+{
+string $selby[]=`ls -sl`;
+textField -e -tx $selby[0] sert;
+}
+global proc iselput(int $Moi)
+{
+string $sst=`textField -q -tx sert`;
+$sst=`substitute " " $sst "*"`;
+string $nt_texas[]=`textScrollList -q -ai nt_texList`;
+$nt_texas=nt_sort($nt_texas);
+for($each in $nt_texas)
+{
+if(`gmatch $each ("*"+$sst+"*")`)
+{
+if($Moi)
+textScrollList -e -di $each nt_texList;
+else
+textScrollList -e -si $each nt_texList;
+}
+}
+}
+
+global proc nt_inverta()
+{
+string $essel[]=`textScrollList -q -ai nt_texList`;
+string $nt_texas[]=`textScrollList -q -si nt_texList`;
+$essel= stringArrayRemove($nt_texas,$essel);
+textScrollList -e -da nt_texList;
+for($each in $essel)
+textScrollList -e -si $each nt_texList;
+
+}
+global proc nt_slist()
+{
+if(`checkBox -q -v cbUpd`)
+{
+textScrollList -e -ra nt_proxList;
+string $nt_texas[]=`textScrollList -q -ai nt_texList`;
+for($each in $nt_texas)
+{
+textScrollList -e -a $each nt_proxList;
+}
+}
+}
+global proc ntrefreshList()
+{
+string $nt_texas[]=`textScrollList -q -ai nt_texList`;
+ntshowList($nt_texas);
+}
+
+global proc ntshowList(string $joints[])
+{
+int $ay=`checkBox -q -v cbUpd`;
+if($ay==1)
+{
+string $stinjo[]=`textScrollList -q -si nt_texList`;
+$joints=nt_sort($joints);
+nt_clearlist();
+int $flag=0;
+for($oro in $joints)
+{
+    if (`nodeType($oro)`=="joint")
+    if (`getAttr($oro+".liw")`==1)
+    $flag=1;
+textScrollList -e -a $oro nt_texList;
+ if(stringArrayContains($oro,$stinjo))
+	textScrollList -e -si $oro nt_texList;	
+}
+if ($flag==1)
+    button -e -bgc 1 1 1  lockbutt;
+else
+    button -e -bgc 0 0 0  lockbutt;
+}
+}
+global proc jo2cl()
+{
+ int $aljo=`optionMenu -q -sl modi`;
+if($aljo==1)
+python("jocl()");
+if($aljo==2)
+python("cljo()");
+
+}
+global proc string[] nt_sort(string $inpu[])
+{
+if(`checkBox -q -v cbSort`)
+{
+string $outpu[]=sort($inpu);
+return $outpu;
+}
+return $inpu;
+}
+global proc ntsearches()
+{
+
+nt_slist();
+string $sst=`textField -q -tx sert`;
+string $nt_texas[]=`textScrollList -q -ai nt_texList`;
+$nt_texas=nt_sort($nt_texas);
+for($each in $nt_texas)
+{
+if(`gmatch $each ("*"+$sst+"*")`)
+textScrollList -e -si $each nt_texList;
+}
+}
+global proc nt_llist()
+{
+string $nt_selt[]=`textScrollList -q -si nt_texList`;
+textScrollList -e -ra nt_texList;
+string $nt_texas[]=`textScrollList -q -ai nt_proxList`;
+for($each in $nt_texas)
+{
+textScrollList -e -a $each nt_texList;
+}
+for($each in $nt_selt)
+{
+textScrollList -e -si $each nt_texList;
+}
+}
+global proc modioc()
+{
+int $q=`optionMenu -q -sl modi`;
+popupMenu -e -dai asfapop;
+if($q==1)
+{
+menuItem -l "Remove" -c "iremover()" -p asfapop;
+menuItem -l "RemoveOthers" -c "ixremover()" -p asfapop;
+menuItem -d 1 -p asfapop;
+menuItem -l "LocalJoints" -c "selLoc()";
+menuItem -l "SwapJoints" -c "josuf()" -p asfapop;
+button -e -l "J2C"  jcBut;
+}
+if($q==2)
+{
+menuItem -l "Remove" -c "iremover()" -p asfapop;
+menuItem -l "RemoveOthers" -c "ixremover()" -p asfapop;
+menuItem -d 1 -p asfapop;
+menuItem -l "SelectHandle" -c "python(\"keltrans()\")" -p asfapop;
+button -e -l "C2J"  jcBut;
+}
+}
+global proc selu()
+{
+string $textList="nt_texList";
+global string $artSkinCurrentInfluence;
+string $sele[]=`ls -sl -fl`;
+string $joints[]=`textScrollList -q -si $textList`;
+int $mes=0;
+if (size($sele))
+$mes=python("tisMeshe(\""+$sele[0]+"\")");
+int $sikk=`optionMenu -q -sl modi`;
+if($mes)
+{
+if ($sikk==2)
+{
+artSetToolAndSelectAttr( "artAttrCtx", "cluster."+$joints[0]+".weights" );
+}
+if ($sikk==1)
+{
+$artSkinCurrentInfluence=$joints[0];
+artAttrSkinToolScript 4;
+//artAttrSkinJointsMenu("artJoinListPopupMenu","artAttrSkinTool");
+}
+}
+else
+select -r $joints;
+}
+global proc seleme()
+{
+string $joints[]=`textScrollList -q -ai nt_texList`;
+select -r $joints;
+}
+global proc Holdval()
+{
+float $val[]=`button -q -bgc lockbutt`;
+string $joints[]=`textScrollList -q -ai nt_texList`;
+for($each in $joints)
+setAttr ($each+".liw") (1-$val[0]);
+button -e  -bgc (1-$val[0]) (1-$val[0]) (1-$val[0])  lockbutt;
+}
+global proc Lockval()
+{
+string $joints[]=`textScrollList -q -ai nt_texList`;
+for($each in $joints)
+{
+setAttr ($each+".liw") 0;
+}
+string $joints[]=`textScrollList -q -si nt_texList`;
+for($each in $joints)
+{
+setAttr ($each+".liw") 1;
+}
+iremover();
+button -e -bgc 0 0 0  lockbutt;
+}
+global proc Paintval()
+{
+string $joints[]=`textScrollList -q -ai nt_texList`;
+for($each in $joints)
+{
+setAttr ($each+".liw") 1;
+}
+string $joints[]=`textScrollList -q -si nt_texList`;
+for($each in $joints)
+{
+setAttr ($each+".liw") 0;
+}
+ixremover();
+button -e -bgc 0 0 0  lockbutt;
+}
+global proc selP()
+{
+string $joints[]=`textScrollList -q -ai nt_texList`;
+textScrollList -e -ra nt_texList;
+for($each in $joints)
+{
+if(`getAttr ($each+".liw")`)
+;
+else
+textScrollList -e -a $each nt_texList;
+}
+button -e -bgc 0 0 0  lockbutt;
+//nt_slist();
+}
+global proc nt_clearlist()
+{
+nt_slist();
+textScrollList -e -ra nt_texList;
+}
+global proc astl()
+{
+nt_slist();
+string $nt_texas[]=`ls -sl`;
+textScrollList -e -ra nt_texList;
+$nt_texas=nt_sort($nt_texas);
+for($nt_each in $nt_texas)
+if(nodeType($nt_each)=="joint")
+textScrollList -e -a $nt_each nt_texList;
+}
+global proc astla()
+{
+nt_slist();
+string $nt_all[]={};
+string $nt_texas[]=`ls -sl`;
+textScrollList -e -ra nt_texList;
+$nt_texas=nt_sort($nt_texas);
+for($nt_each in $nt_texas)
+{
+string $ll[]=`listRelatives -ad $nt_each`;
+for($n_each in $ll)
+if(nodeType($nt_each)=="joint")
+$nt_all[size($nt_all)]=$n_each;
+}
+string $nt_flist[]=stringArrayRemoveDuplicates($nt_all);
+for($each in $nt_flist)
+textScrollList -e -a $each nt_texList;
+}
+global proc selbu()
+{
+string $joints[]=`python("selbu()")`;
+if(size($joints))
+{
+ntshowList($joints);
+jremover;
+}
+}
+global proc DGCB(string $dragCtrl,int $x,int $y,int $mods)
+{	
+if(endsWith($dragCtrl,"nt_texList"))
+{
+string $stinjo[]=`textScrollList -q -si nt_texList`;
+textField -e -tx $stinjo[0] sert;
+}
+}
+global proc DPCB(string $dragCtrl, string $dropCtrl, string $msgs[],
+            int $x, int $y, int $type)
+{
+
+
+
+}
+global proc iremover()
+{
+nt_slist();
+string $nt_texas[]=`textScrollList -q -si nt_texList`;
+for($nt_each in $nt_texas)
+textScrollList -e -ri $nt_each nt_texList;
+}
+global proc ixremover()
+{
+nt_slist();
+string $nt_texas[]=`textScrollList -q -si nt_texList`;
+string $nt_xas[]=`textScrollList -q -ai nt_texList`;
+textScrollList -e -ra nt_texList;
+for($nt_each in $nt_texas)
+textScrollList -e -a $nt_each nt_texList;
+
+}
+global proc jremover()
+{string $stinjo[]={};
+string $bessel[]=`ls -sl -fl`;
+float $mins=`floatSliderGrp -q -v sklid`;
+int $aut=`checkBox -q -v  cbAuto`;
+string $mestask=`textField -q -tx mesht`;
+string $meshth=`textField -q -tx meshth`;
+ int $sikk=`optionMenu -q -sl modi`;
+int $onof=`checkBox -q -v cbUpd`;
+if($aut)
+$mins=0.0;
+if (($onof==1) && size($bessel))
+{
+if(`checkBox -q -v cbNonZe`)
+python("jbremover("+$mins+","+$sikk+")");
+else
+{ if ($sikk==1)
+$stinjo=`skinCluster -q -inf $mestask`;
+if($sikk==2)
+$stinjo=python("Bskin(\""+$meshth+"\",['cluster','softMod','nonLinear'])");
+ntshowList($stinjo);
+}
+select -r $bessel;
+}
+}
+global proc coop()
+{
+ string $essel[]=`textScrollList -q -ai nt_texList`;
+ string $ellam[]=`ls -sl`;
+ for($oro in $ellam)
+ {
+     skinCluster -tsb $essel $oro;
+     select -r `textField -q -tx meshth`;
+     select -add $oro;
+     copySkinWeights -sa "closestPoint" -ia "name" -ia "label" -ia "oneToOne" -nm;
+     }
+ }
